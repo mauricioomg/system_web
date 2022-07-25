@@ -1,0 +1,60 @@
+{% extends 'index/base.html' %}
+{% load static %}
+{% block title %} {{ title }} libro - Libreria {% endblock title %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title"> {{ title }} libro </h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="title" class="form-label"><b>Nombre: </b></label>
+                            <input type="text" class="form-control" name="title" id="id_title" placeholder="Introduce el nombre del libro" maxlength="40" required
+                                {% if update_book %} value="{{ book.title }}" {% endif %}>
+                            {% if form.title.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.title.errors %}
+                                        <li><strong class="text-danger">{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="image" class="form-label"><b>Imagen: </b></label>
+                            {% if update_book %}
+                                <a href=" {{ book.image.url }} " target="_blank"> {{ book.image }} </a>
+                            {% endif %}
+                            <input type="file" class="form-control" name="image" id="id_image" accept="image/*" data-max-file-size="3M" {% if not image %} required {% endif %} >
+                            {% if form.image.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.image.errors %}
+                                        <li><strong class="text-danger">{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label"><b>Descripción: </b></label>
+                            <textarea cols="30" rows="5" class="form-control" name="description" id="id_description" placeholder="Introduce una breve descripción" maxlength="500" required>{% if update_book %}{{ book.description }}{% endif %}</textarea>
+                            {% if form.description.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.description.errors %}
+                                        <li><strong class="text-danger">{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success float-end"> {{ title }} </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

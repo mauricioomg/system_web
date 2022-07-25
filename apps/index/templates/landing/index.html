@@ -1,0 +1,22 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <span class="text-danger"><b> {{ form.non_field_errors }} </b></span>
+    {% endif %}
+    <div class="p-5 bg-light">
+        <div class="container">
+            <h1 class="display-3">Bienvenidos a la libreria</h1>
+            <p class="lead">Empezar a ingresar libros</p>
+            <hr class="my-2">
+            <p class="lead">
+                <a href="{% url 'index:list_books' %}">
+                    <button type="button" class="btn btn-primary">Empezar</button>
+                </a>
+            </p>
+        </div>
+    </div>
+
+{% endblock content %}

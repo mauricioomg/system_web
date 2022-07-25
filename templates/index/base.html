@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- TITLE_AND_ICON -->
+        <title> {% block title %} Libreria {% endblock title %} </title>
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/img/logo.png' %}" />
+        <!-- END_TITLE_AND_ICON -->
+        <!-- STYLES -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+        <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet" />
+        {% block styles %}{% endblock styles %}
+        <!-- END_STYLES -->
+    </head>
+    <body>
+        <header>
+            {% block header %} {% include 'index/header.html' %} {% endblock header %}
+        </header>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% block content %}{% endblock content %}
+                    <!-- MODAL -->
+                    {% include 'index/users/user_modal.html' %}
+                    <!-- END_MODAL -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            {% block footer %} {% include 'index/footer.html' %} {% endblock footer %}
+        </footer>
+        <!-- SCRIPTS -->
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        {% block js %}{% endblock js %}
+        <!-- END_SCRIPTS -->
+    </body>
+</html>

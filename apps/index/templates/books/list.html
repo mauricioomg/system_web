@@ -1,0 +1,71 @@
+{% extends 'index/base.html' %}
+{% load static %}
+{% block title %} Lista de libros - Libreria {% endblock title %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="card-title mb-0 py-2">Libros</h4>
+                </div>
+                <div class="col-6 text-end py-1">
+                    <form action="" method="get">
+                        <div class="btn-group" role="group" aria-label="Basic outlined example">
+                            <input type="text" class="form-control" name="q" id="id_q" placeholder="Buscar por título"
+                                {% if request.GET.q %} value="{{ request.GET.q }}" {% endif %}>
+                            {% if form.title.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.title.errors %}
+                                        <li><strong class="text-danger">{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <button type="submit" class="btn btn-outline-success material-icons-outlined rounded-2">search</button>
+                            <a href="{% url 'index:list_books' %}">
+                                <button type="button" class="btn btn-outline-danger material-icons-outlined rounded-2">close</button>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if list_books %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Descripción</th>
+                                <th>Creador</th>
+                                <th>Fecha creación</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            {% for book in list_books %}
+                                <tr>
+                                    <td> {{ book.title }} </td>
+                                    <td> {{ book.description|truncatechars_html:50 }} </td>
+                                    <td> {{ book.creator }} </td>
+                                    <td> {{ book.creation_date }} </td>
+                                    <td class="text-end">
+                                        <a href="{% url 'index:detail_book' book.pk %}">
+                                            <button type="button" class="btn btn-outline-info material-icons-outlined">visibility</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% include 'pagination/pagination.html' %}
+                </div>
+            {% else %}
+                <h6 class="text-center">No hay libros para mostrar</h6>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock content %}

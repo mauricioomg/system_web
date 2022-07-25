@@ -1,0 +1,15 @@
+{% extends 'index/base.html' %}
+{% load static %}
+{% block title %} Nosotros - Libreria {% endblock title %}
+
+{% block content %}
+
+    <div class="card bg-dark text-white">
+        <img src=" {% static 'assets/img/aboutus.jpg' %} " class="card-img" alt="bg">
+        <div class="card-img-overlay">
+            <h5 class="card-title mb-3">Nosotros</h5>
+            <p class="card-text"> {% lorem 10 b random %} </p>
+        </div>
+    </div>
+
+{% endblock content %}

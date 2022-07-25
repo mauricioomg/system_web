@@ -1,0 +1,24 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src=" {{ book.image.url }} " class="img-fluid rounded-start p-3" alt="Imagen libro">
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                <div class="card-body" style="height:100%;"%>
+                    <h5 class="card-title mb-4"> {{ book.title }} </h5>
+                    <p class="card-text"> {{ book.description }} </p>
+                    <hr>
+                    <p class="card-text text-end"><small class="text-muted"> {{ book.creator }}, {{ book.creation_date }} </small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary float-end" onclick="history.back()">Volver</button>
+
+{% endblock content %}

@@ -1,0 +1,86 @@
+<!-- LOGIN -->
+<div class="modal fade" id="login_modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">LOGIN</h5>
+            </div>
+            <form action="{% url 'index:user_login' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="username" class="form-label"><b>Nombre de usuario: </b></label>
+                                <input type="text" class="form-control" name="username" id="id_username" placeholder="Introduce un nombre de usuario" required>
+                                {% if form.username.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.username.errors %}
+                                        <li><strong class="text-danger">{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label"><b>Contraseña: </b></label>
+                                <input type="password" class="form-control" name="password" id="id_password" placeholder="Introduce una contraseña" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                {% if form.password.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.password.errors %}
+                                        <li><strong class="text-danger">{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success float-end">Confirmar</button>
+                    <button type="button" class="btn btn-primary" data-bs-target="#register_modal" data-bs-toggle="modal">Ir al registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END_LOGIN -->
+<!-- REGISTER -->
+<div class="modal fade" id="register_modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">REGISTRO</h5>
+            </div>
+            <form action="{% url 'index:user_register' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% include 'index/users/form.html' %}
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success float-end">Confirmar</button>
+                    <button type="button" class="btn btn-primary" data-bs-target="#login_modal" data-bs-toggle="modal">Ir a login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END_REGISTER -->
+<!-- UPDATE -->
+{% if user.is_authenticated %}
+    <div class="modal fade" id="update_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">ACTUALIZAR DATOS</h5>
+                </div>
+                <form action="{% url 'index:user_update' user.pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% include 'index/users/form.html' %}
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success float-end">Actualizar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<!-- END_UPDATE -->
