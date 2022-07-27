@@ -3,7 +3,7 @@
         <div class="row mb-3">
             <div class="mb-3">
                 <label for="username" class="form-label"><b>Nombre de usuario: </b></label>
-                <input type="text" class="form-control" name="username" id="id_username" placeholder="Introduce un nombre de usuario" required
+                <input type="text" class="form-control" name="username" id="id_username" placeholder="Introduce un nombre de usuario" maxlength="10" required
                     {% if user %} value="{{ user.username }}" {% endif %}>
                 {% if form.username.errors %}
                     <ul class="errorlist">
