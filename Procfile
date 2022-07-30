@@ -1,1 +1,1 @@
-web: gunicorn syystem_web.wsgi --log-file -
+web: gunicorn syystem_web.wsgi
