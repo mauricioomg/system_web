@@ -1,1 +1,1 @@
-web: gunicorn syystem_web.wsgi
+web: gunicorn system_web.wsgi
