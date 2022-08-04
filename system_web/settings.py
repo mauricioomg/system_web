@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-f)z+4#q#!a^pd)*(#eyt4m7&4=(5-til*0fd+%n+u9sg-j6&b0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -35,7 +34,6 @@ INSTALLED_APPS = [
     # SYSTEM_APPS
     'apps.index',
     'apps.dashboard',
-
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +44,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'system_web.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dafvpi9lr53drl',
+        'USER': 'zrkslfmwpeumjd',
+        'PASSWORD': 'a1a0e09f1094159eac7440f1ab1e2ca19b5debe18d9478879fce825126164d63',
+        'HOST': 'ec2-44-198-82-71.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -121,11 +125,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_TMP = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
